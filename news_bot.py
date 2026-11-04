@@ -26,7 +26,6 @@ CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
 FEEDS = {
     "BBC Mundo": "https://feeds.bbci.co.uk/mundo/rss.xml",
     "El País": "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada",
-    "Xataka": "https://feeds.weblogssl.com/xataka2",
 }
 
 MAX_PER_FEED = 5               # máximo de noticias por medio en cada ejecución
