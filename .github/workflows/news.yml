@@ -1,0 +1,44 @@
+name: Noticias a Telegram
+
+on:
+  schedule:
+    # Cada 30 minutos (minutos 7 y 37 de cada hora, hora UTC).
+    # Usamos minutos "raros" porque a las horas en punto GitHub suele ir más saturado.
+    - cron: "7,37 * * * *"
+  workflow_dispatch: # permite lanzarlo a mano desde la pestaña Actions
+
+permissions:
+  contents: write # necesario para guardar seen.json en el repositorio
+
+concurrency:
+  group: news-bot
+  cancel-in-progress: false
+
+jobs:
+  send-news:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar el bot
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python news_bot.py
+
+      - name: Guardar noticias ya enviadas
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add seen.json
+          git diff --staged --quiet || (git commit -m "Actualizar seen.json" && git push)
