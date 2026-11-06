@@ -27,6 +27,11 @@ FEEDS = {
     "BBC Mundo": "https://feeds.bbci.co.uk/mundo/rss.xml",
     "El País": "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada",
     "Al Jazeera": "https://www.aljazeera.com/xml/rss/all.xml",
+    "Euronews": "https://www.euronews.com/rss",
+    "Reuters (Mundo)": "https://news.google.com/rss/search?q=when:24h+site:reuters.com/world&ceid=US:en&hl=en-US&gl=US",
+    "Africanews": "https://africanews.com/feed/rss",
+    "The Diplomat": "https://thediplomat.com/feed/",
+    "O Globo": "https://oglobo.globo.com/rss/oglobo",
 }
 
 MAX_PER_FEED = 5               # máximo de noticias por medio en cada ejecución
